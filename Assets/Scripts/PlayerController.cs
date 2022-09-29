@@ -9,18 +9,25 @@ public class PlayerController : MonoBehaviour
 
     private float maxYpos = 6.5f;
 
+    private GameManager gameManager;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        verticalInput = Input.GetAxis("Vertical");
 
-        transform.Translate(Vector3.up * Time.deltaTime * speed * verticalInput);
+        if(gameManager.isGameActive == true)
+        {
+            verticalInput = Input.GetAxis("Vertical");
+
+            transform.Translate(Vector3.up * Time.deltaTime * speed * verticalInput);
+        }
+        
 
         if(transform.position.y >= maxYpos)
         {

@@ -9,9 +9,15 @@ public class BallController : MonoBehaviour
 
     public int xDirection;
 
+    public bool enemyTurn;
+
+    private GameManager gameManager;
+
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+
         xDirection = -11;
         ballRb = GetComponent<Rigidbody>();
 
@@ -28,7 +34,7 @@ public class BallController : MonoBehaviour
     {
         //Debug.Log(xDirection);
 
-        float yRange = Random.Range(-5, 5);
+        float yRange = Random.Range(-7, 7);
         Vector3 ballDestination = new Vector3(xDirection, yRange, transform.position.z);
 
         ballRb.AddForce(ballDestination * speed, ForceMode.Impulse);
@@ -42,12 +48,35 @@ public class BallController : MonoBehaviour
         {
             xDirection = 11;
             Move();
+
+            enemyTurn = true;
         }
 
         if (collision.gameObject.CompareTag("Enemy"))
         {
             xDirection = -11;
             Move();
+
+            enemyTurn = false;
+        }
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        Destroy(gameObject);
+        gameManager.isGameActive = false;
+
+        if (other.gameObject.CompareTag("PlayerGoal"))
+        {
+            gameManager.GameOver();
+
+            // display new game button
+        }
+
+        if (other.gameObject.CompareTag("EnemyGoal"))
+        {
+            gameManager.UpdateScore();
+            gameManager.continueButton.gameObject.SetActive(true);
         }
     }
 }

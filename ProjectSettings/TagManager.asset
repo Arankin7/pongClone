@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Bounds
   - Enemy
+  - PlayerGoal
+  - EnemyGoal
+  - PongBall
   layers:
   - Default
   - TransparentFX

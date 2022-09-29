@@ -8,6 +8,7 @@ public class EnemyController : MonoBehaviour
     private Rigidbody enemyRb;
 
     public float speed;
+    private float maxYpos = 6.5f;
 
     private GameManager gameManager;
     private BallController ballController;
@@ -46,6 +47,16 @@ public class EnemyController : MonoBehaviour
                 transform.position = Vector3.Lerp(transform.position, enemyDestination, speed * Time.deltaTime);
             }
             
-        }    
+        }
+
+        if (transform.position.y >= maxYpos)
+        {
+            transform.position = new Vector3(transform.position.x, maxYpos, transform.position.z);
+        };
+
+        if (transform.position.y <= -maxYpos)
+        {
+            transform.position = new Vector3(transform.position.x, -maxYpos, transform.position.z);
+        };
     }
 }

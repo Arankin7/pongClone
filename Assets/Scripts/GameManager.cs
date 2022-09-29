@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     public Button restartButton;
     public Button continueButton;
 
+    public GameObject diffScreen;
+
     public GameObject pongBall;
 
     public GameObject player;
@@ -23,6 +25,9 @@ public class GameManager : MonoBehaviour
     public Vector3 enemyStartPos;
 
     public TextMeshProUGUI gameOverText;
+    public TextMeshProUGUI scoreText;
+
+    private int score;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +38,9 @@ public class GameManager : MonoBehaviour
         startButton.onClick.AddListener(StartGame);
         restartButton.onClick.AddListener(RestartGame);
         continueButton.onClick.AddListener(StartGame);
+
+        score = 0;
+        scoreText.text = "Score: " + score;
     }
 
     // Update is called once per frame
@@ -53,15 +61,28 @@ public class GameManager : MonoBehaviour
  
     }
 
+    public void GameReady()
+    {
+        // Set difficulty buttons inactive 
+        // Set start button Active
+        startButton.gameObject.SetActive(true);
+        diffScreen.gameObject.SetActive(false);
+    }
+
     public void UpdateScore()
     {
         Debug.Log("Add to score");
+
+        score++;
+        scoreText.text = "Score: " + score;
     }
 
     public void GameOver()
     {
         gameOverText.gameObject.SetActive(true);
         isGameActive = false;
+
+        score = 0;
 
         restartButton.gameObject.SetActive(true);
     }

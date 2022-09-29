@@ -69,8 +69,6 @@ public class BallController : MonoBehaviour
         if (other.gameObject.CompareTag("PlayerGoal"))
         {
             gameManager.GameOver();
-
-            // display new game button
         }
 
         if (other.gameObject.CompareTag("EnemyGoal"))

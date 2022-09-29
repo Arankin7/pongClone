@@ -7,19 +7,24 @@ public class EnemyController : MonoBehaviour
     private GameObject target;
     private Rigidbody enemyRb;
 
-    private float speed = 0.7f;
+    public float speed;
 
     private GameManager gameManager;
     private BallController ballController;
+    private DifficultyButton difficultyButton;
 
     // Start is called before the first frame update
     void Start()
     {
         enemyRb = GetComponent<Rigidbody>();
         
-
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         
+    }
+
+    public void SetDifficulty(float difficulty)
+    {
+        speed = difficulty;
     }
 
     // Update is called once per frame
